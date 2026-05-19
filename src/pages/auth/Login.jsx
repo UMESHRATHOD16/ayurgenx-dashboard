@@ -82,7 +82,7 @@ const Login = () => {
             animate={{ opacity: 1 }}
             className="mb-4 px-4 py-3 bg-tea/30 border border-tea rounded-lg text-botanical text-sm"
           >
-            ✓ Login successful! Redirecting...
+            Login successful! Redirecting...
           </motion.div>
         )}
 
