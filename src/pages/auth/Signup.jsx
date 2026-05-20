@@ -105,7 +105,7 @@ const Signup = () => {
             className="mb-4 px-4 py-3 rounded-lg text-sm"
             style={{ backgroundColor: "#A8B79E30", border: "1px solid #A8B79E", color: "#556B4F" }}
           >
-            ✓ Account created! Setting up your profile...
+              Account created! Setting up your profile...
           </motion.div>
         )}
 
