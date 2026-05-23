@@ -122,7 +122,7 @@ src/
 │   │   └── Dashboard.jsx
 │   ├── store/
 │   │   ├── ProductList.jsx
-│   │   ├─��� ProductDetail.jsx
+│   │   ├─  ProductDetail.jsx
 │   │   ├── Cart.jsx
 │   │   └── OrderSummary.jsx
 │   └── admin/
