@@ -108,6 +108,7 @@ Make sure you have the following installed:
 
 ## Project Structure
 
+```
 src/
 ├── pages/
 │   ├── auth/
@@ -121,7 +122,7 @@ src/
 │   │   └── Dashboard.jsx
 │   ├── store/
 │   │   ├── ProductList.jsx
-│   │   ├── ProductDetail.jsx
+│   │   ├─��� ProductDetail.jsx
 │   │   ├── Cart.jsx
 │   │   └── OrderSummary.jsx
 │   └── admin/
@@ -140,6 +141,7 @@ src/
 │   └── adminData.js
 ├── App.jsx
 └── main.jsx
+```
 
 ---
 
@@ -151,7 +153,7 @@ All product data, wellness results, admin statistics and order data is dummy and
 
 ## Challenges Faced
 
-- Tailwind CSS v4 uses a new CSS based theme configuration instead of tailwind.config.js. Custom colors had to be defined using the @theme directive in index.css and applied via inline styles in some cases where class based application was inconsistent.
+- Tailwind CSS v4 uses a new CSS based theme configuration instead of tailwind.config.js. Custom colors had to be defined using the @theme directive in index.css and applied via inline styles in some components.
 
 - Preventing unnecessary re-renders on the profile page required moving inner component definitions outside the parent component so React would not remount them on every state change.
 
