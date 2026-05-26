@@ -23,7 +23,7 @@ const Navbar = () => {
     { path: "/assessment", label: "Assessment" },
     { path: "/store", label: "Store" },
     { path: "/profile", label: "Profile" },
-    { path: "/admin", label: "Admin" },
+    ...(user?.role === "admin" ? [{ path: "/admin", label: "Admin" }] : []),
   ];
 
   const isActive = (path) => location.pathname === path;

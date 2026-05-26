@@ -42,8 +42,9 @@ const Login = () => {
 
     // Dummy login — dispatch to Redux
     dispatch(login({
-      name: "Rathod Umesh",
+      name: formData.email === "admin@ayurgenx.com" ? "Admin" : "Rathod Umesh",
       email: formData.email,
+      role: formData.email === "admin@ayurgenx.com" ? "admin" : "user",
     }));
 
     setSuccess(true);

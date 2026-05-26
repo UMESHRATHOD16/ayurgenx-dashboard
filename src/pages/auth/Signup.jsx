@@ -57,6 +57,7 @@ const Signup = () => {
     dispatch(login({
       name: formData.name,
       email: formData.email,
+      role: "user",
     }));
 
     setSuccess(true);

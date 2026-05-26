@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   return (
     <BrowserRouter>
@@ -51,7 +51,14 @@ function App() {
         <Route path="/order-summary" element={<ProtectedRoute><OrderSummary /></ProtectedRoute>} />
 
         {/* Admin Route */}
-        <Route path="/admin" element={<ProtectedRoute><AdminPreview /></ProtectedRoute>} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              {user?.role === "admin" ? <AdminPreview /> : <Navigate to="/" />}
+            </ProtectedRoute>
+          }
+        />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" />} />
