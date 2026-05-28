@@ -15,10 +15,11 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
 
   const navLinks = [
+    { path: "/", label: "Home" },
     { path: "/dashboard", label: "Dashboard" },
     { path: "/assessment", label: "Assessment" },
     { path: "/store", label: "Store" },
@@ -34,14 +35,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <div className="w-8 h-8 bg-botanical rounded-full flex items-center justify-center">
               <span className="text-cream text-xs font-bold">A</span>
             </div>
             <span className="text-botanical font-semibold text-lg tracking-wide">
               AyurGenX
             </span>
-          </Link>
+          </div>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
