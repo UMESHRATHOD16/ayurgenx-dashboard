@@ -127,7 +127,7 @@ const Assessment = () => {
     const result = calculateResult(answers);
     dispatch(setResult(result));
     setSubmitted(true);
-    setTimeout(() => navigate("/"), 1500);
+    setTimeout(() => navigate("/dashboard"), 1500);
   };
 
   return (

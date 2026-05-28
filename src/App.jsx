@@ -22,6 +22,8 @@ import AdminPreview from "./pages/admin/AdminPreview";
 // Layout
 import Navbar from "./components/layout/Navbar";
 
+import Landing from "./pages/landing/Landing";
+
 // Protected Route wrapper
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -36,11 +38,12 @@ function App() {
       {isAuthenticated && <Navbar />}
       <Routes>
         {/* Public Routes */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* Protected Routes */}
-        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
         <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
 

@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { path: "/", label: "Dashboard" },
+    { path: "/dashboard", label: "Dashboard" },
     { path: "/assessment", label: "Assessment" },
     { path: "/store", label: "Store" },
     { path: "/profile", label: "Profile" },
