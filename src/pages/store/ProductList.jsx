@@ -5,31 +5,45 @@ import { addToCart } from "../../store/slices/cartSlice";
 import { products, categories } from "../../data/products";
 import { motion } from "framer-motion";
 
-const ProductCard = ({ product, onViewDetail, onAddToCart }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 16 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3 }}
-    className="bg-white border rounded-2xl p-5 flex flex-col gap-3"
+const ProductCard = ({ product, onViewDetail, onAddToCart, index }) => (
+    <motion.div
+      onClick={() => onViewDetail(product.id)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{
+        y: -8,
+      }}
+      transition={{
+        duration: 0.3,
+        delay: index * 0.01,
+      }}
+    className="bg-white border rounded-2xl p-5 flex flex-col gap-3 shadow-sm hover:shadow-xl transition-all duration-10 cursor-pointer"
     style={{ borderColor: "#DCCFB8" }}
   >
     {/* Image Placeholder */}
-    <div
-      className="w-full h-36 rounded-xl flex items-center justify-center"
-      style={{ backgroundColor: "#F5F1E8" }}
-    >
-      <span className="text-sm font-medium" style={{ color: "#9CAF88" }}>
-        {product.category}
-      </span>
+    <div className="overflow-hidden rounded-xl">
+    <div className="overflow-hidden rounded-xl">
+      <motion.img
+        src={product.image}
+        alt={product.name}
+        className="w-full h-52 object-cover"
+        whileHover={{
+          scale: 1.06,
+        }}
+        transition={{
+          duration: 0.4,
+        }}
+      />
+    </div>
     </div>
 
     {/* Tag + Name */}
     <div className="flex items-start justify-between gap-2">
-      <h3 className="text-sm font-semibold leading-snug" style={{ color: "#556B4F" }}>
+      <h3 className="text-base font-semibold leading-snug" style={{ color: "#556B4F" }}>
         {product.name}
       </h3>
       <span
-        className="text-xs px-2 py-0.5 rounded-full shrink-0 font-medium"
+        className="text-xs px-2.5 py-1 rounded-full shrink-0 font-medium"
         style={{ backgroundColor: "#F5F1E8", color: "#9CAF88", border: "1px solid #DCCFB8" }}
       >
         {product.tag}
@@ -83,8 +97,12 @@ const ProductCard = ({ product, onViewDetail, onAddToCart }) => (
         View Details
       </button>
       <motion.button
-        whileTap={{ scale: 0.97 }}
-        onClick={() => onAddToCart(product)}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.96 }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onAddToCart(product);
+        }}
         className="flex-1 py-2 rounded-lg text-xs font-medium transition-all hover:opacity-90"
         style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
       >
@@ -129,13 +147,38 @@ const ProductList = () => {
         </div>
 
         {/* Search */}
+        <motion.div
+            whileHover={{
+              y: -2,
+            }}
+            transition={{
+              duration: 0.2,
+            }}
+            className="relative"
+          >
         <div className="mb-4">
+        <div className="relative">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="#9CAF88"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"
+            />
+          </svg>
+
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search Ayurvedic products..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none"
+            className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm outline-none shadow-sm transition-all duration-300 focus:shadow-md"
             style={{
               backgroundColor: "white",
               borderColor: "#DCCFB8",
@@ -143,6 +186,8 @@ const ProductList = () => {
             }}
           />
         </div>
+        </div>
+        </motion.div>
 
         {/* Category Filter */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-6 no-scrollbar">
@@ -150,7 +195,7 @@ const ProductList = () => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className="shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border transition-all duration-200"
+              className="shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 cursor-pointer relative h-12 w-40 overflow-hidden before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:m-auto before:h-0 before:w-0 before:rounded-sm before:bg-[#556B4F] before:duration-450 before:ease-out hover:shadow-[#556B4F] hover:before:h-40 hover:before:w-40 hover:before:opacity-80"
               style={{
                 backgroundColor: activeCategory === cat ? "#556B4F" : "white",
                 borderColor: activeCategory === cat ? "#556B4F" : "#DCCFB8",
@@ -163,17 +208,18 @@ const ProductList = () => {
         </div>
 
         {/* Results count */}
-        <p className="text-xs mb-4" style={{ color: "#9CAF88" }}>
+        <p className="text-xs mb-5" style={{ color: "#9CAF88" }}>
           Showing {filtered.length} products
         </p>
 
         {/* Product Grid */}
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((product) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((product, index) => (
               <ProductCard
                 key={product.id}
                 product={product}
+                index = {index}
                 onViewDetail={(id) => navigate(`/store/${id}`)}
                 onAddToCart={handleAddToCart}
               />
