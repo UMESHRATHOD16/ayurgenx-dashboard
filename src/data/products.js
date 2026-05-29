@@ -1,7 +1,20 @@
+import img1 from "../assets/img1.webp"
+import img2 from "../assets/img2.webp"
+import img3 from "../assets/img3.webp"
+import img4 from "../assets/img4.webp"
+import img5 from "../assets/img5.webp"
+import img6 from "../assets/img6.webp"
+import img7 from "../assets/img7.webp"
+import img8 from "../assets/img8.webp"
+import img9 from "../assets/img9.webp"
+import img10 from "../assets/img10.webp"
+
+
 export const products = [
   {
     id: 1,
     name: "Complete Detox Kit",
+    image: img1,
     category: "Detox Kits",
     price: 1299,
     originalPrice: 1599,
@@ -23,6 +36,7 @@ export const products = [
   {
     id: 2,
     name: "Liver Cleanse Kit",
+    image: img2,
     category: "Detox Kits",
     price: 999,
     originalPrice: 1299,
@@ -44,6 +58,7 @@ export const products = [
   {
     id: 3,
     name: "Tulsi Green Tea",
+    image:img3,
     category: "Herbal Teas",
     price: 349,
     originalPrice: 449,
@@ -65,6 +80,7 @@ export const products = [
   {
     id: 4,
     name: "Ashwagandha Calm Tea",
+    image:img4,
     category: "Herbal Teas",
     price: 399,
     originalPrice: 499,
@@ -86,6 +102,7 @@ export const products = [
   {
     id: 5,
     name: "Neem Turmeric Soap",
+    image:img5,
     category: "Wellness Soaps",
     price: 199,
     originalPrice: 249,
@@ -107,6 +124,7 @@ export const products = [
   {
     id: 6,
     name: "Charcoal Detox Soap",
+    image:img6,
     category: "Wellness Soaps",
     price: 229,
     originalPrice: 279,
@@ -128,6 +146,7 @@ export const products = [
   {
     id: 7,
     name: "Brahmi Hair Oil",
+    image:img7,
     category: "Ayurvedic Oils",
     price: 549,
     originalPrice: 699,
@@ -149,6 +168,7 @@ export const products = [
   {
     id: 8,
     name: "Kumkumadi Face Oil",
+    image:img8,
     category: "Ayurvedic Oils",
     price: 799,
     originalPrice: 999,
@@ -170,6 +190,7 @@ export const products = [
   {
     id: 9,
     name: "Stress Relief Capsules",
+    image:img9,
     category: "Sleep and Stress Relief",
     price: 699,
     originalPrice: 899,
@@ -191,6 +212,7 @@ export const products = [
   {
     id: 10,
     name: "Deep Sleep Drops",
+    image:img10,
     category: "Sleep and Stress Relief",
     price: 599,
     originalPrice: 749,
