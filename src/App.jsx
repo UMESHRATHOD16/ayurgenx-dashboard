@@ -27,7 +27,7 @@ import Landing from "./pages/landing/Landing";
 // Protected Route wrapper
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/" />;
 };
 
 function App() {
