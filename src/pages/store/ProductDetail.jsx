@@ -54,13 +54,21 @@ const ProductDetail = () => {
       <div className="max-w-2xl mx-auto flex flex-col gap-6">
 
         {/* Back */}
-        <button
+
+        <motion.button
+          whileHover={{ x: -4 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => navigate("/store")}
-          className="text-sm w-fit"
-          style={{ color: "#9CAF88" }}
+          className="flex items-center gap-2 text-sm w-fit px-3 py-2 rounded-xl transition-all cursor-pointer"
+          style={{
+            color: "#556B4F",
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #DCCFB8",
+          }}
         >
-          Back to Store
-        </button>
+          <span>←</span>
+          <span>Back to Store</span>
+        </motion.button>
 
         {/* Product Card */}
         <motion.div
@@ -71,18 +79,14 @@ const ProductDetail = () => {
           style={{ borderColor: "#DCCFB8" }}
         >
           {/* Image */}
-          <div
-            className="w-full h-56 flex items-center justify-center"
-            style={{ backgroundColor: "#F5F1E8" }}
-          >
-            <div className="text-center">
-              <p className="text-sm font-medium" style={{ color: "#9CAF88" }}>
-                {product.category}
-              </p>
-              <p className="text-xs mt-1" style={{ color: "#DCCFB8" }}>
-                {product.weight}
-              </p>
-            </div>
+          <div className="overflow-hidden">
+            <motion.img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-72 object-cover"
+              whileHover={{ scale: 1.04 }}
+              transition={{ duration: 0.4 }}
+            />
           </div>
 
           <div className="p-6 flex flex-col gap-4">
@@ -139,6 +143,27 @@ const ProductDetail = () => {
             <p className="text-sm leading-relaxed" style={{ color: "#9CAF88" }}>
               {product.description}
             </p>
+              
+             <div className="flex flex-wrap gap-2">
+            {[
+              "Natural Ingredients",
+              "Ayurvedic Formula",
+              "Lab Tested",
+              "Fast Delivery",
+            ].map((item) => (
+              <span
+                key={item}
+                className="text-xs px-3 py-1 rounded-full"
+                style={{
+                  backgroundColor: "#F5F1E8",
+                  color: "#556B4F",
+                  border: "1px solid #DCCFB8",
+                }}
+              >
+                {item}
+              </span>
+            ))}
+          </div>   
 
             {/* Tabs */}
             <div>
@@ -193,11 +218,11 @@ const ProductDetail = () => {
               <span className="text-sm font-medium" style={{ color: "#556B4F" }}>
                 Quantity
               </span>
-              <div className="flex items-center gap-3 border rounded-lg px-3 py-1.5"
+              <div className="flex items-center gap-4 border rounded-xl px-4 py-2 shadow-sm"
                 style={{ borderColor: "#DCCFB8" }}>
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="text-lg font-medium w-5 text-center"
+                  className="text-lg font-medium w-5 text-center cursor-pointer"
                   style={{ color: "#556B4F" }}
                 >
                   -
@@ -208,7 +233,7 @@ const ProductDetail = () => {
                 </span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="text-lg font-medium w-5 text-center"
+                  className="text-lg font-medium w-5 text-center cursor-pointer"
                   style={{ color: "#556B4F" }}
                 >
                   +
@@ -230,20 +255,22 @@ const ProductDetail = () => {
             {/* Buttons */}
             <div className="flex gap-3">
               <motion.button
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={handleAddToCart}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all cursor-pointer"
                 style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
               >
                 Add to Cart
               </motion.button>
               <motion.button
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => {
                   handleAddToCart();
                   setTimeout(() => navigate("/cart"), 300);
                 }}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all cursor-pointer"
                 style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
               >
                 Buy Now
