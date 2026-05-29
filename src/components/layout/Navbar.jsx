@@ -67,10 +67,18 @@ const Navbar = () => {
           {/* Right Side */}
           <div className="hidden md:flex items-center gap-4">
             {/* Cart */}
-            <Link to="/cart" className="relative">
-              <span className="text-sm text-botanical font-medium">Cart</span>
+            <Link
+              to="/cart"
+              className="relative flex items-center gap-2 text-botanical font-medium hover:text-sage transition-colors"
+            >
+              <span className="text-lg">🛒</span>
+
+              <span className="text-sm">
+                Cart
+              </span>
+
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-botanical text-cream text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-2 -right-3 bg-botanical text-cream text-xs rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
                   {cartCount}
                 </span>
               )}
