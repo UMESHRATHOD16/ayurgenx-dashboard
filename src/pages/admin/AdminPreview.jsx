@@ -208,7 +208,7 @@ const AdminPreview = () => {
           className="flex justify-end"
         >
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/dashboard")}
             className="px-6 py-2.5 rounded-lg text-sm font-medium border transition-all"
             style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
           >
