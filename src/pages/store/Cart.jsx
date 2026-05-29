@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity, clearCart } from "../../store/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, scale } from "framer-motion";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Cart = () => {
           {items.length > 0 && (
             <button
               onClick={() => dispatch(clearCart())}
-              className="text-xs font-medium"
+              className="text-xs font-medium cursor-pointer"
               style={{ color: "#9CAF88" }}
             >
               Clear All
@@ -76,36 +76,44 @@ const Cart = () => {
             <div className="flex flex-col gap-3">
               <AnimatePresence>
                 {items.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-white border rounded-2xl p-5 flex gap-4"
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  whileHover={{
+                    y: -4,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  className="bg-white border rounded-2xl p-5 flex gap-4 shadow-sm hover:shadow-lg"
                     style={{ borderColor: "#DCCFB8" }}
                   >
                     {/* Image Placeholder */}
-                    <div
-                      className="w-16 h-16 rounded-xl shrink-0 flex items-center justify-center"
-                      style={{ backgroundColor: "#F5F1E8" }}
-                    >
-                      <span className="text-xs text-center leading-tight px-1"
-                        style={{ color: "#9CAF88" }}>
-                        {item.category?.split(" ")[0]}
-                      </span>
+                    <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
 
                     {/* Details */}
                     <div className="flex-1 flex flex-col gap-2">
                       <div className="flex items-start justify-between gap-2">
-                        <h3 className="text-sm font-semibold leading-snug"
-                          style={{ color: "#556B4F" }}>
+                      <button
+                        onClick={() => navigate(`/store/${item.id}`)}
+                        className="text-left"
+                      >
+                        <h3
+                          className="text-sm font-semibold leading-snug hover:underline cursor-pointer"
+                          style={{ color: "#556B4F" }}
+                        >
                           {item.name}
                         </h3>
+                      </button>
                         <button
                           onClick={() => dispatch(removeFromCart(item.id))}
-                          className="text-xs shrink-0"
+                          className="text-xs shrink-0 px-2 py-1 rounded-lg transition-all hover:bg-gray-50 cursor-pointer"
                           style={{ color: "#9CAF88" }}
                         >
                           Remove
@@ -119,12 +127,12 @@ const Cart = () => {
                       <div className="flex items-center justify-between">
                         {/* Quantity */}
                         <div
-                          className="flex items-center gap-3 border rounded-lg px-3 py-1"
+                          className="flex items-center gap-4 border rounded-xl px-4 py-2 shadow-sm"
                           style={{ borderColor: "#DCCFB8" }}
                         >
                           <button
                             onClick={() => handleQuantity(item.id, item.quantity - 1)}
-                            className="text-base font-medium"
+                            className="text-base font-medium cursor-pointer"
                             style={{ color: "#556B4F" }}
                           >
                             -
@@ -135,7 +143,7 @@ const Cart = () => {
                           </span>
                           <button
                             onClick={() => handleQuantity(item.id, item.quantity + 1)}
-                            className="text-base font-medium"
+                            className="text-base font-medium cursor-pointer"
                             style={{ color: "#556B4F" }}
                           >
                             +
@@ -162,18 +170,26 @@ const Cart = () => {
 
             {/* Delivery Notice */}
             {delivery === 0 ? (
-              <div
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 className="px-4 py-3 rounded-xl text-sm text-center font-medium"
                 style={{ backgroundColor: "#A8B79E30", color: "#556B4F", border: "1px solid #A8B79E" }}
               >
                 You have unlocked free delivery
-              </div>
+              </motion.div>
             ) : (
               <div
-                className="px-4 py-3 rounded-xl text-sm text-center"
-                style={{ backgroundColor: "#F5F1E8", color: "#9CAF88", border: "1px solid #DCCFB8" }}
+                className="w-full h-2 rounded-full overflow-hidden"
+                style={{ backgroundColor: "#DCCFB8" }}
               >
-                Add products worth Rs {999 - subtotal} more for free delivery
+                <div
+                  className="h-full"
+                  style={{
+                    width: `${Math.min((subtotal / 999) * 100, 100)}%`,
+                    backgroundColor: "#556B4F",
+                  }}
+                />
               </div>
             )}
 
@@ -209,22 +225,33 @@ const Cart = () => {
               >
                 <span style={{ color: "#556B4F" }}>Total</span>
                 <span style={{ color: "#556B4F" }}>Rs {total}</span>
+                {discount > 0 && (
+                  <div
+                    className="text-xs font-medium"
+                    style={{ color: "#556B4F" }}
+                  >
+                    You saved Rs {discount}
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Buttons */}
             <div className="flex gap-3">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => navigate("/store")}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all cursor-pointer"
                 style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
               >
                 Continue Shopping
-              </button>
+              </motion.button>
               <motion.button
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => navigate("/order-summary")}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all cursor-pointer"
                 style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
               >
                 Proceed to Order
