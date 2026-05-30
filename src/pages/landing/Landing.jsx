@@ -743,7 +743,7 @@ const Landing = () => {
                       backgroundColor: "#A8B79E20",
                       boxShadow: "0 16px 40px rgba(0,0,0,0.2)",
                     }}
-                    className="p-6 rounded-2xl border cursor-default transition-colors cursor-pointer"
+                    className="p-6 rounded-2xl border transition-colors cursor-pointer"
                     style={{ border: "1px solid #A8B79E40" }}
                   >
                     <p className="text-2xl font-bold mb-1" style={{ color: "#F5F1E8" }}>
