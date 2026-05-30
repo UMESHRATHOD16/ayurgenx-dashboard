@@ -124,7 +124,7 @@ const OrderSummary = () => {
               Continue Shopping
             </button> 
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/dashboard")}
               className="w-full py-2.5 rounded-lg text-sm font-medium border transition-all cursor-pointer hover:translate-1"
               style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
             >
