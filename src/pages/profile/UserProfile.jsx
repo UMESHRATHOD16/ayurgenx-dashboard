@@ -3,6 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiUser } from "react-icons/fi";
+import { FiUsers } from "react-icons/fi";
+import { FiBriefcase } from "react-icons/fi";
+import { FiTarget } from "react-icons/fi";
+import { FiCheckSquare } from "react-icons/fi";
+import { FiCheckCircle } from "react-icons/fi";
 
 const lifestyleOptions = [
   { label: "Student", desc: "Currently enrolled in college or university" },
@@ -94,7 +100,7 @@ const UserProfile = () => {
     return (
       <div className="min-h-screen px-4 py-10" style={{ backgroundColor: "#F5F1E8" }}>
         <div
-          className="max-w-xl mx-auto bg-white border rounded-2xl p-8 shadow-sm"
+          className="max-w-3xl mx-auto bg-white border rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300"
           style={{ borderColor: "#DCCFB8" }}
         >
           <motion.div
@@ -168,6 +174,37 @@ const UserProfile = () => {
                 </motion.span>
               </div>
             </motion.div>
+              
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {[
+                  { label: "Profile", value: "100%" },
+                  { label: "Goal", value: user?.wellnessGoal || "—" },
+                  { label: "Lifestyle", value: user?.lifestyle || "—" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="p-3 rounded-xl text-center"
+                    style={{
+                      backgroundColor: "#F5F1E8",
+                      border: "1px solid #DCCFB8",
+                    }}
+                  >
+                    <p
+                      className="text-xs mb-1"
+                      style={{ color: "#9CAF88" }}
+                    >
+                      {item.label}
+                    </p>
+
+                    <p
+                      className="text-sm font-semibold"
+                      style={{ color: "#556B4F" }}
+                    >
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
             {/* Info Cards */}
             <div className="grid grid-cols-2 gap-3 mb-6">
@@ -230,24 +267,24 @@ const UserProfile = () => {
             <div className="flex gap-3">
               <motion.button
                 whileTap={{ scale: 0.97 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02,  y: -3, }}
                 onClick={() => {
                   setStep(1);
                   setIsEditing(true);
                 }}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium border transition-all cursor-pointer"
                 style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
               >
-                Edit Profile
+                Edit Profile →
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.97 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02,  y: -3, }}
                 onClick={() => navigate("/assessment")}
-                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all"
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all cursor-pointer"
                 style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
               >
-                Assessment
+                Assessment Report →
               </motion.button>
             </div>
           </motion.div>
@@ -352,9 +389,23 @@ const UserProfile = () => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
               >
-                <h2 className="text-2xl font-bold mb-1" style={{ color: "#556B4F" }}>
-                  Basic Details
-                </h2>
+                <motion.div
+                  animate={{
+                    y: [0, -6, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                  className="text-5xl mb-4"
+                >
+                  <div className="mb-4">
+                  <FiUser
+                    size={42}
+                    style={{ color: "#556B4F" }}
+                  />
+                </div> Basic Details
+                </motion.div>
                 <p className="text-sm mb-8" style={{ color: "#9CAF88" }}>
                   Tell us a little about yourself
                 </p>
@@ -381,8 +432,19 @@ const UserProfile = () => {
                     </label>
                     <input
                       type="number"
+                      min="1"
+                      max="120"
                       value={formData.age}
-                      onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                      onChange={(e) => {
+                      const value = e.target.value;
+
+                      if (value === "" || (Number(value) >= 1 && Number(value) <= 120)) {
+                        setFormData({
+                          ...formData,
+                          age: value,
+                        });
+                        }
+                      }}
                       placeholder="21"
                       className="px-4 py-3 rounded-xl border text-sm outline-none transition-all duration-200"
                       style={{ backgroundColor: "white", borderColor: "#DCCFB8", color: "#556B4F" }}
@@ -425,9 +487,24 @@ const UserProfile = () => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
               >
-                <h2 className="text-2xl font-bold mb-1" style={{ color: "#556B4F" }}>
-                  Gender
-                </h2>
+              <motion.div
+                animate={{
+                  y: [0, -6, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                }}
+
+                className="text-5xl mb-4"
+              >
+                <div className="mb-4">
+                <FiUsers
+                  size={42}
+                  style={{ color: "#556B4F" }}
+                />
+              </div> Gender
+              </motion.div>
                 <p className="text-sm mb-8" style={{ color: "#9CAF88" }}>
                   This helps us personalise your wellness plan
                 </p>
@@ -437,9 +514,12 @@ const UserProfile = () => {
                     <motion.button
                       key={g}
                       whileTap={{ scale: 0.98 }}
-                      whileHover={{ y: -2 }}
+                      whileHover={{
+                        y: -5,
+                        scale: 1.02,
+                      }}
                       onClick={() => setFormData({ ...formData, gender: g })}
-                      className="w-full py-4 rounded-xl border text-sm font-semibold transition-all duration-200"
+                      className="w-full py-4 rounded-xl border text-sm font-semibold transition-all duration-20 cursor-pointer"
                       style={{
                         backgroundColor: formData.gender === g ? "#556B4F" : "white",
                         borderColor: formData.gender === g ? "#556B4F" : "#DCCFB8",
@@ -465,10 +545,13 @@ const UserProfile = () => {
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.97 }}
-                    whileHover={{ scale: 1.01 }}
+                    whileHover={{
+                        y: -5,
+                        scale: 1.02,
+                      }}
                     onClick={goNext}
                     disabled={!formData.gender}
-                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all"
+                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer"
                     style={{
                       backgroundColor: formData.gender ? "#556B4F" : "#DCCFB8",
                       color: formData.gender ? "#F5F1E8" : "#9CAF88",
@@ -491,9 +574,23 @@ const UserProfile = () => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
               >
-                <h2 className="text-2xl font-bold mb-1" style={{ color: "#556B4F" }}>
-                  Your Lifestyle
-                </h2>
+                <motion.div
+                  animate={{
+                    y: [0, -6, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                  className="text-5xl mb-4"
+                >
+                  <div className="mb-4">
+                  <FiBriefcase
+                    size={42}
+                    style={{ color: "#556B4F" }}
+                  />
+                </div> Your Lifestyle
+                </motion.div>
                 <p className="text-sm mb-8" style={{ color: "#9CAF88" }}>
                   Which best describes your current life situation
                 </p>
@@ -503,9 +600,12 @@ const UserProfile = () => {
                     <motion.button
                       key={l.label}
                       whileTap={{ scale: 0.98 }}
-                      whileHover={{ y: -2 }}
+                      whileHover={{
+                        y: -5,
+                        scale: 1.02,
+                      }}
                       onClick={() => setFormData({ ...formData, lifestyle: l.label })}
-                      className="w-full p-4 rounded-xl border text-left transition-all duration-200"
+                      className="w-full p-4 rounded-xl border text-left transition-all duration-20 cursor-pointer"
                       style={{
                         backgroundColor: formData.lifestyle === l.label ? "#556B4F" : "white",
                         borderColor: formData.lifestyle === l.label ? "#556B4F" : "#DCCFB8",
@@ -567,9 +667,23 @@ const UserProfile = () => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
               >
-                <h2 className="text-2xl font-bold mb-1" style={{ color: "#556B4F" }}>
-                  Primary Goal
-                </h2>
+                <motion.div
+                  animate={{
+                    y: [0, -6, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                  className="text-5xl mb-4"
+                >
+                  <div className="mb-4">
+                  <FiTarget
+                    size={42}
+                    style={{ color: "#556B4F" }}
+                  />
+                </div> Wellness Goal
+                </motion.div>
                 <p className="text-sm mb-8" style={{ color: "#9CAF88" }}>
                   What do you most want to improve right now
                 </p>
@@ -579,9 +693,12 @@ const UserProfile = () => {
                     <motion.button
                       key={goal.label}
                       whileTap={{ scale: 0.97 }}
-                      whileHover={{ y: -3 }}
+                      whileHover={{
+                          y: -5,
+                          scale: 1.02,
+                        }}
                       onClick={() => setFormData({ ...formData, wellnessGoal: goal.label })}
-                      className="p-5 rounded-xl border text-center transition-all duration-200"
+                      className="p-5 rounded-xl border text-center transition-all duration-20 cursor-pointer"
                       style={{
                         backgroundColor: formData.wellnessGoal === goal.label ? "#556B4F" : "white",
                         borderColor: formData.wellnessGoal === goal.label ? "#556B4F" : "#DCCFB8",
@@ -640,9 +757,23 @@ const UserProfile = () => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
               >
-                <h2 className="text-2xl font-bold mb-1" style={{ color: "#556B4F" }}>
-                  Looks Good?
-                </h2>
+               <motion.div
+                  animate={{
+                    y: [0, -6, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                  className="text-2xl font-bold mb-1"
+                >
+                  <div className="mb-4">
+                  <FiCheckSquare
+                    size={42}
+                    style={{ color: "#556B4F" }}
+                  />
+                </div> Looks Good ?
+                </motion.div>
                 <p className="text-sm mb-6" style={{ color: "#9CAF88" }}>
                   Review your details before we personalise your experience
                 </p>
@@ -677,16 +808,23 @@ const UserProfile = () => {
                   <motion.button
                     whileTap={{ scale: 0.97 }}
                     onClick={goBack}
-                    className="flex-1 py-2.5 rounded-xl text-sm font-medium border transition-all"
+                    whileHover={{
+                          y: -5,
+                          scale: 1.02,
+                    }}
+                    className="flex-1 py-2.5 rounded-xl text-sm font-medium border transition-all cursor-pointer"
                     style={{ borderColor: "#DCCFB8", color: "#9CAF88", backgroundColor: "white" }}
                   >
                     Back
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.97 }}
-                    whileHover={{ scale: 1.01 }}
+                    whileHover={{
+                          y: -5,
+                          scale: 1.02,
+                    }}
                     onClick={isProfileComplete ? handleEditSave : handleSave}
-                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all"
+                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all cusror-pointer"
                     style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
                   >
                     {saving ? "Saving..." : "Save Profile"}
