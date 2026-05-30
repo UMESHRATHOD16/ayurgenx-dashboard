@@ -118,14 +118,14 @@ const OrderSummary = () => {
           <div className="flex flex-col gap-3">
             <button
               onClick={() => navigate("/store")}
-              className="w-full py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all"
+              className="w-full py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-all cursor-pointer hover:translate-1"
               style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
             >
               Continue Shopping
-            </button>
+            </button> 
             <button
               onClick={() => navigate("/")}
-              className="w-full py-2.5 rounded-lg text-sm font-medium border transition-all"
+              className="w-full py-2.5 rounded-lg text-sm font-medium border transition-all cursor-pointer hover:translate-1"
               style={{ borderColor: "#556B4F", color: "#556B4F", backgroundColor: "white" }}
             >
               Back to Dashboard
@@ -161,18 +161,16 @@ const OrderSummary = () => {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between gap-4 pb-4 border-b last:border-0 last:pb-0"
+              className="flex items-center justify-between gap-4 pb-4 border-b last:border-0 last:pb-0 transition-all duration-300 hover:translate-x-1"
               style={{ borderColor: "#DCCFB8" }}
             >
               <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center"
-                  style={{ backgroundColor: "#F5F1E8" }}
-                >
-                  <span className="text-xs" style={{ color: "#9CAF88" }}>
-                    {item.category?.charAt(0)}
-                  </span>
-                </div>
+              <motion.img
+                whileHover={{ scale: 1.08 }}
+                src={item.image}
+                alt={item.name}
+                className="w-12 h-12 rounded-xl object-cover shrink-0"
+              />
                 <div>
                   <p className="text-sm font-medium" style={{ color: "#556B4F" }}>
                     {item.name}
@@ -233,19 +231,30 @@ const OrderSummary = () => {
               <label className="text-sm font-medium" style={{ color: "#556B4F" }}>
                 {field.label}
               </label>
-              <input
-                type={field.type}
-                name={field.name}
-                value={form[field.name]}
-                onChange={handleChange}
-                placeholder={field.placeholder}
-                className="px-4 py-2.5 rounded-lg border text-sm outline-none"
-                style={{
-                  backgroundColor: "#F5F1E8",
-                  borderColor: errors[field.name] ? "#f87171" : "#DCCFB8",
-                  color: "#556B4F",
-                }}
-              />
+            <input
+              type={field.type}
+              name={field.name}
+              value={form[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+              className="px-4 py-3 rounded-xl border text-sm outline-none transition-all duration-300 hover:shadow-md focus:shadow-lg"
+              style={{
+                backgroundColor: "#F5F1E8",
+                borderColor: errors[field.name] ? "#f87171" : "#DCCFB8",
+                color: "#556B4F",
+                cursor: "text",
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#556B4F";
+                e.target.style.transform = "translateY(-2px)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = errors[field.name]
+                  ? "#f87171"
+                  : "#DCCFB8";
+                e.target.style.transform = "translateY(0)";
+              }}
+            />
               {errors[field.name] && (
                 <span className="text-xs" style={{ color: "#f87171" }}>
                   {errors[field.name]}
@@ -279,12 +288,21 @@ const OrderSummary = () => {
 
         {/* Place Order */}
         <motion.button
-          whileTap={{ scale: 0.97 }}
+          whileHover={{
+            y: -3,
+            scale: 1.01,
+          }}
+          whileTap={{
+            scale: 0.97,
+          }}
           onClick={handlePlaceOrder}
-          className="w-full py-3 rounded-lg text-sm font-medium hover:opacity-90 transition-all"
-          style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
+          className="w-full py-3 rounded-xl text-sm font-semibold hover:opacity-95 transition-all shadow-md hover:shadow-xl cursor-pointer"
+          style={{
+            backgroundColor: "#556B4F",
+            color: "#F5F1E8",
+          }}
         >
-          Place Order
+          Place Order →
         </motion.button>
 
       </div>
