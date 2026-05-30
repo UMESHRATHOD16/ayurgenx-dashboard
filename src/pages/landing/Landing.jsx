@@ -358,7 +358,7 @@ const Landing = () => {
             whileTap={{ scale: 0.97 }}
             whileHover={{ scale: 1.02 }}
             onClick={openAssessment}
-            className="px-8 py-3 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+            className="px-8 py-3 rounded-xl text-sm font-semibold transition-all hover:opacity-90 cursor-pointer hover:translate-1"
             style={{ backgroundColor: "#556B4F", color: "#F5F1E8" }}
           >
             Check Your Wellness Score
@@ -648,7 +648,7 @@ const Landing = () => {
               whileTap={{ scale: 0.97 }}
               whileHover={{ scale: 1.02 }}
               onClick={openAssessment}
-              className="px-8 py-3 rounded-xl text-sm font-semibold transition-all"
+              className="px-8 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer hover:translate-1"
               style={{ backgroundColor: "#F5F1E8", color: "#556B4F" }}
             >
               Take Quick Assessment
@@ -743,7 +743,7 @@ const Landing = () => {
                       backgroundColor: "#A8B79E20",
                       boxShadow: "0 16px 40px rgba(0,0,0,0.2)",
                     }}
-                    className="p-6 rounded-2xl border cursor-default transition-colors"
+                    className="p-6 rounded-2xl border cursor-default transition-colors cursor-pointer"
                     style={{ border: "1px solid #A8B79E40" }}
                   >
                     <p className="text-2xl font-bold mb-1" style={{ color: "#F5F1E8" }}>
